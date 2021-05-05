@@ -39,12 +39,10 @@ export class InputComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn: any): void {
-    console.log('registerOnChange: ', fn);
     this.propagateChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    console.log('registerOnTouched: ', fn);
     this.propagateTouched = fn;
   }
 

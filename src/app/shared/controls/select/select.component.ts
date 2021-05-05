@@ -1,38 +1,39 @@
 import {
   Component,
-  forwardRef,
   OnInit,
+  forwardRef,
   Input,
   Output,
   EventEmitter,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
-type PasswordType = 'password' | 'text';
+import { MatSelectChange } from '@angular/material/select';
+
+import { ControlItem, Value } from '@app/models/frontend';
+export { ControlItem, Value } from '@app/models/frontend';
 
 @Component({
-  selector: 'app-password',
-  templateUrl: './password.component.html',
-  styleUrls: ['./password.component.scss'],
+  selector: 'app-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true,
     },
   ],
 })
-export class PasswordComponent implements OnInit, ControlValueAccessor {
-  @Input() placeholder: string;
-  @Output() changed = new EventEmitter<string>();
+export class SelectComponent implements OnInit, ControlValueAccessor {
+  @Input() items: ControlItem[];
+  @Input() Placeholder: string;
+  @Output() changed = new EventEmitter<Value>();
 
-  value: string;
+  value: Value;
   isDisabled: boolean;
-  passwordType: PasswordType;
 
-  constructor() {
-    this.passwordType = 'password';
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -55,7 +56,9 @@ export class PasswordComponent implements OnInit, ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onKeyup(value: string): void {
+  onChanged(event: MatSelectChange): void {
+    const value = event.value ? event.value : null;
+
     this.value = value;
     this.propagateChange(value);
     this.changed.emit(value);
@@ -63,9 +66,5 @@ export class PasswordComponent implements OnInit, ControlValueAccessor {
 
   onBlur(): void {
     this.propagateTouched();
-  }
-
-  togglePassword(): void {
-    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
   }
 }

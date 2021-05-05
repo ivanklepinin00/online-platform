@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -13,19 +14,17 @@ import { environment } from '@src/environments/environment';
 import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        HeaderComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebase.config),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
-        AngularFireStorageModule,
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent, HeaderComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase.config),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
